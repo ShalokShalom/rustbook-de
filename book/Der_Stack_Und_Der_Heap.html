@@ -52,7 +52,7 @@
     <body>
         
         
-    <div class="book" data-level="3.1" data-chapter-title="Der Stack und der Heap" data-filepath="book/Der_Stack_Und_Der_Heap.md" data-basepath=".." data-revision="Mon Nov 02 2015 23:26:18 GMT+0100 (CET)">
+    <div class="book" data-level="3.1" data-chapter-title="Der Stack und der Heap" data-filepath="book/Der_Stack_Und_Der_Heap.md" data-basepath=".." data-revision="Fri Mar 18 2016 18:12:36 GMT+0100 (CET)">
     
 
 <div class="book-summary">
@@ -834,14 +834,14 @@ Das wichtigste ist, wie Speicher funktioniert, mit Stack und Heap.
 Wenn dir Speicherallokation in C-artigen Sprachen bereits vertraut ist,
 dann sieh dieses Kapitel als Auffrischung.
 Wenn nicht, dann lernst du hier Grundlagen, aus der Sicht von Rust.</p>
-<h2 id="speicher-verwaltung"><a name="speicher-verwaltung" class="plugin-anchor" href="#speicher-verwaltung"><span class="fa fa-link"></span></a>Speicher Verwaltung</h2>
+<h2 id="speicherverwaltung"><a name="speicherverwaltung" class="plugin-anchor" href="#speicherverwaltung"><span class="fa fa-link"></span></a>Speicherverwaltung</h2>
 <p>Die beiden Begriffe Stack und Heap beschreiben unterschiedliche Bereiche im Arbeitsspeicher und helfen uns dabei zu unterscheiden wann Speicher alloziert und dealloziert wird.</p>
 <p>Hier zum Vergleich:</p>
 <p>Der Stack ist sehr schnell und daher der Ort an dem Rust standardm&#xE4;&#xDF;ig Speicher alloziert.
 Der Speicher im Stack ist allerdings nur lokal innerhalb einer Funktion verf&#xFC;gbar.
 Der Heap, auf der anderen Seite, ist langsamer, wird explizit f&#xFC;r von deinem Programm alloziert aber ist daf&#xFC;r global erreichbar und hat prinzipiell keine Gr&#xF6;&#xDF;enbeschr&#xE4;nkung.</p>
 <h2 id="der-stack"><a name="der-stack" class="plugin-anchor" href="#der-stack"><span class="fa fa-link"></span></a>Der Stack</h2>
-<p><em>(engl. stack = <strong>&quot;Der Stapel&quot;</strong> )</em></p>
+<p><em>(engl. stack = <strong>&#x201E;Der Stapel&#x201C;</strong> )</em></p>
 <p>Nehmen wir mal ein Beispiel:</p>
 <pre><code class="lang-rust"><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() {
     <span class="hljs-keyword">let</span> x = <span class="hljs-number">42</span>;
@@ -849,10 +849,10 @@ Der Heap, auf der anderen Seite, ist langsamer, wird explizit f&#xFC;r von deine
 </code></pre>
 <p>Dieses Programm besteht nur aus einer Variablenzuweisung, <code>x</code>.
 Der Speicher f&#xFC;r <code>x</code> muss irgendwo alloziert werden.
-Rust &#x2018;Stack-Alloziert&#x2018; standardm&#xE4;&#xDF;ig, das hei&#xDF;t Werte landen auf dem Stack.
+Rust &#x201A;Stack-Alloziert&#x2018; standardm&#xE4;&#xDF;ig, das hei&#xDF;t Werte landen auf dem Stack.
 Was hei&#xDF;t das?</p>
-<p>Wenn eine Funktion aufgerufen wird, dann wird f&#xFC;r jede ihrer lokalen Variablen, und etwas extra Information, Speicher auf ihrem Stack, dem Stackframe,  reserviert.
-F&#xFC;r diese Tutorial ignorieren wir die extra Informationen erstmal.
+<p>Wenn eine Funktion aufgerufen wird, dann wird f&#xFC;r jede ihrer lokalen Variablen, und etwas Zusatzinformation, Speicher auf ihrem Stack, dem Stackframe, reserviert.
+F&#xFC;r diese Tutorial ignorieren wir die Zusatzinformationen erst einmal.
 Wenn <code>main()</code> also ausgef&#xFC;hrt wird, dann allozieren wir einen einzelnen 32-bit Integer auf dem Stackframe, das passiert hier ganz automatisch.
 Wenn die Funktion terminiert wird der Stackframe freigegeben.
 Auch vollautomatisch.</p>
@@ -898,8 +898,8 @@ Wenn du zum Beispiel nur 1 Gigabyte RAM haben solltest, ist <code>n</code> <code
 </tbody>
 </table>
 <p>Wir haben <code>x</code> auf Adresse <code>0</code>, mit dem Wert <code>42</code>.</p>
-<p>Wenn nun <code>foo()</code> aufgerufen wird, wird ein weiter Stackframe alloziert:</p>
-<p>Daher auch der Begriff &quot;Stack&quot; = &quot;Stapel&quot;,
+<p>Wenn nun <code>foo()</code> aufgerufen wird, wird ein weiterer Stackframe alloziert:</p>
+<p>Daher auch der Begriff &#x201E;Stack&#x201C; = &#x201E;Stapel&#x201C;,
 es wird immer etwas oben drauf gelegt und auch ausschlie&#xDF;lich von oben wieder herunter genommen.
 Wie bei einem Stapel Teller.
 Solange <code>foo()</code> l&#xE4;uft, ist auch <code>main()</code> noch nicht beendet und der Speicher beider Funktionen ist noch vergeben.
@@ -933,8 +933,8 @@ Jedoch kann <code>foo()</code> auch nicht direkt auf den Speicher von <code>main
 </table>
 <p>Da <code>0</code> bereits im erst Stackframe vergeben war, verwendet <code>foo()</code> nun Adressen <code>1</code> und <code>2</code>. Der Stapel w&#xE4;chst sprichw&#xF6;rtlich nach oben mit jedem Funktionsaufruf.</p>
 <p>Die Adressen <code>0</code> bis <code>2</code> sind allerdings rein zur Illustration gew&#xE4;hlt,
-im tats&#xE4;chlichen Speicher h&#xE4;tten diese Adressen andere werte und w&#xE4;ren auch nicht direkt aufeinander folgend.</p>
-<p>Nachdem <code>foo()</code> beendet ist wird sein frame wieder vom Stapel genommen und wird sind wieder zur&#xFC;ck bei:</p>
+im tats&#xE4;chlichen Speicher h&#xE4;tten diese Adressen andere Werte und w&#xE4;ren auch nicht direkt aufeinanderfolgend.</p>
+<p>Nachdem <code>foo()</code> beendet ist wird sein Frame wieder vom Stapel genommen und wir sind wieder zur&#xFC;ck bei:</p>
 <table>
 <thead>
 <tr>
@@ -1112,8 +1112,8 @@ Kriegst du ein Gef&#xFC;hl f&#xFC;r die Tellerstapel?
 Wir legen einen drauf und nehmen einen wieder runter,
 wir nehmen nie was aus der Mitte raus.</p>
 <h2 id="der-heap"><a name="der-heap" class="plugin-anchor" href="#der-heap"><span class="fa fa-link"></span></a>Der Heap</h2>
-<p><em>(engl. heap = <strong>&quot;Der Haufen&quot;</strong> )</em></p>
-<p>Wie bereits erw&#xE4;hnt k&#xF6;nnen Funktionen nicht auf die lokalen variablen von anderen Funktionen Zugreifen.
+<p><em>(engl. heap = <strong>&#x201E;Der Haufen&#x201C;</strong> )</em></p>
+<p>Wie bereits erw&#xE4;hnt k&#xF6;nnen Funktionen nicht auf die lokalen variablen von anderen Funktionen zugreifen.
 Manchmal m&#xF6;chte man jedoch etwas von einer Funktion an eine andere &#xFC;bergeben oder l&#xE4;nger als f&#xFC;r die Laufzeit einer Funktion im Speicher behalten.
 Daf&#xFC;r haben wir den Heap.</p>
 <p>In Rust allozieren wir Speicher auf dem Heap mit einer <a href="http://doc.rust-lang.org/stable/std/boxed/" target="_blank"><code>Box&lt;T&gt;</code></a>.
@@ -1186,14 +1186,13 @@ Der Speicher sieht also eigentlich etwa so aus:</p>
 <p>Wir haben (2<sup>30</sup>) - 1 Adressen in unserem imagin&#xE4;ren 1GB RAM.
 Da der Stack von 0 nach oben w&#xE4;chst ist es am einfachsten die Adressen von Oben nach unten f&#xFC;r den Heap zu verwenden.
 Der erste Wert steht also an der h&#xF6;chsten Stelle im Speicher.
-Das <code>struct</code> auf <code>x</code> hat einen <a href="Raw_Zeiger.md">raw Zeiger</a> auf die Stelle an der wir den Speicher auf dem Heap alloziert haben,</p>
-<p>also den Wert (2<sup>30</sup>) - 1.</p>
+Das `struct` auf `x` hat einen [raw Zeiger](Raw_Zeiger.md) auf die Stelle an der wir den Speicher auf dem Heap alloziert haben, also den Wert (2<sup>30</sup>) - 1.</p>
 <p>Wir habe noch nicht wirklich viel dar&#xFC;ber gesprochen, was es eigentlich bedeutet in diesen Kontexten Speicher zu allozieren und zu deallozieren.
 Das zu vertiefen w&#xFC;rde den Rahmen dieses Tutorials sprengen,
 aber was wichtig ist mitzunehmen, ist dass der Heap nicht einfach nur ein von oben nach unten wachsender Stack ist.
 Im Gegensatz um Stack muss der Heap nicht in einer festen Reihenfolge alloziert und freigegeben werden kann.
 Dadurch kann er allerdings L&#xF6;cher haben.
-Dazu wird es sp&#xE4;ter ein Beispiel.
+Dazu wird es sp&#xE4;ter ein Beispiel geben.
 Hier erst mal ein kleines Diagramm des Speicherlayouts eines Programms das schon ein Weilchen lief:</p>
 <table>
 <thead>
@@ -1259,11 +1258,11 @@ Verschiedene Programme k&#xF6;nnen unterschiedliche Speicherallokatoren verwende
 also Bibliotheken, die einem das abnehmen.
 Rust Programme verwenden <a href="http://www.canonware.com/jemalloc/" target="_blank">jemalloc</a>.</p>
 <p>Zur&#xFC;ck zu unserem Beispiel.
-Da sich diese Werte auf dem Heap befinden, k&#xF6;nnen sich l&#xE4;nger existieren als die Funktion die die Box erzeugt hat.
+Da sich diese Werte auf dem Heap befinden, k&#xF6;nnen sie l&#xE4;nger existieren als die Funktion die die Box erzeugt hat.
 In diesem Fall jedoch nicht.<sup><a href="#fn_1" id="reffn_1">1</a></sup>
 Wenn eine Funktion endet wird ihr Stackframe freigegeben.
 <code>Box&lt;T&gt;</code> hat einen Trick: <a href="Drop.md">Drop</a>.
-Es implementiert <code>Drop</code> und gibt sobald die ihr Wert auf dem Stack freigegeben wird ebenfalls den Speicher auf dem Heap frei.
+Es implementiert <code>Drop</code> und gibt sobald ihr Wert auf dem Stack freigegeben wird ebenfalls den Speicher auf dem Heap frei.
 Geil! Wenn also <code>x</code> verschwindet gibt es vorher seinen Speicher auf dem Heap frei:</p>
 <table>
 <thead>
@@ -1288,7 +1287,7 @@ Geil! Wenn also <code>x</code> verschwindet gibt es vorher seinen Speicher auf d
 </table>
 <p>Sobald der Stackframe verschwindet, wird der gesamte verwendete Speicher freigegeben.</p>
 <h2 id="argumente-und-ausleihen"><a name="argumente-und-ausleihen" class="plugin-anchor" href="#argumente-und-ausleihen"><span class="fa fa-link"></span></a>Argumente und Ausleihen</h2>
-<p>Wir hatten bereits ein paar Grundlegende Beispiele f&#xFC;r Stack und Heap,
+<p>Wir hatten bereits ein paar grundlegende Beispiele f&#xFC;r Stack und Heap,
 aber was ist mit Funktionsargumenten und Ausleihen?</p>
 <pre><code class="lang-rust"><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">foo</span></span>(i: &amp;<span class="hljs-keyword">i32</span>) {
     <span class="hljs-keyword">let</span> z = <span class="hljs-number">42</span>;
@@ -1301,7 +1300,7 @@ aber was ist mit Funktionsargumenten und Ausleihen?</p>
     foo(y);
 }
 </code></pre>
-<p>Wenn ihr <code>main()</code> betreten sieht der Speicher so aus:</p>
+<p>Wenn wir <code>main()</code> betreten sieht der Speicher so aus:</p>
 <table>
 <thead>
 <tr>
@@ -1357,10 +1356,10 @@ Sein Wert ist also die Speicheradresse von <code>x</code>, in diesem Fall also <
 </tr>
 </tbody>
 </table>
-<p>Stackframes sind nicht nur f&#xFC;r Lokale Zuweisungen, sie sind auch f&#xFC;r Argumente gedacht.
+<p>Stackframes sind nicht nur f&#xFC;r lokale Zuweisungen, sie sind auch f&#xFC;r Argumente gedacht.
 In diesem Fall also brauchen wir sowohl <code>i</code>, das Argument und <code>z</code>, die lokale Variable.
 <code>i</code> ist die Kopie des Arguments <code>y</code>, also auch <code>0</code>.</p>
-<p>Das ist der Grund daf&#xFC;r dass man ausgeliehenen Speicher nicht deallozieren kann. Wenn man wir nun <code>x</code> freigeben w&#xFC;rde, w&#xFC;rden <code>y</code> und <code>i</code> auf ung&#xFC;ltigen Speicher zeigen.
+<p>Das ist der Grund daf&#xFC;r, dass man ausgeliehenen Speicher nicht deallozieren kann. Wenn wir nun <code>x</code> freigeben w&#xFC;rden, w&#xFC;rden <code>y</code> und <code>i</code> auf ung&#xFC;ltigen Speicher zeigen.
 Das ist in Sprachen wie C m&#xF6;glich, aber nicht in Rust.</p>
 <h2 id="ein-komplexes-beispiel"><a name="ein-komplexes-beispiel" class="plugin-anchor" href="#ein-komplexes-beispiel"><span class="fa fa-link"></span></a>Ein komplexes Beispiel</h2>
 <p>Gehen wir das hier mal Schritt f&#xFC;r Schritt durch:</p>
@@ -1431,7 +1430,7 @@ Das ist in Sprachen wie C m&#xF6;glich, aber nicht in Rust.</p>
 </table>
 <p>Wir allozieren Speicher f&#xFC;r <code>j</code>, <code>i</code> und <code>h</code>.
 <code>i</code> liegt auf dem Heap, beinhaltet also einen Adresswert dort hin.</p>
-<p>Als n&#xE4;chstes wird am ende von <code>main()</code> <code>foo()</code> aufgerufen:</p>
+<p>Als n&#xE4;chstes wird am Ende von <code>main()</code> <code>foo()</code> aufgerufen:</p>
 <table>
 <thead>
 <tr>
@@ -1685,7 +1684,7 @@ Das Argument <code>x</code> hat den gleichen Wert wie <code>j</code>, da wird da
 <p>Wir allozieren also einen weiteren Wert auf dem Heap und m&#xFC;ssen eins von (2<sup>30</sup>) - 1 abziehen.
 Das ist einfacher das zu schreiben als <code>1,073,741,822</code> &#x263A;.
 Jedenfalls, hier die Variablen wie gewohnt.</p>
-<p>Am ende von <code>bar()</code> wird wieder <code>baz()</code> aufgerufen:</p>
+<p>Am Ende von <code>bar()</code> wird wieder <code>baz()</code> aufgerufen:</p>
 <table>
 <thead>
 <tr>
@@ -1779,7 +1778,7 @@ Jedenfalls, hier die Variablen wie gewohnt.</p>
 </table>
 <p>So, jetzt haben wir den tiefsten Punkt in unserer Schachtelung erreicht,
 Gl&#xFC;ckwunsch, du bist bist jetzt noch dran geblieben.</p>
-<p>Nachdem <code>baz()</code> nun zu ende ist k&#xF6;nnen wir <code>f</code> und <code>g</code> wegwerfen:</p>
+<p>Nachdem <code>baz()</code> nun zu Ende ist k&#xF6;nnen wir <code>f</code> und <code>g</code> wegwerfen:</p>
 <table>
 <thead>
 <tr>
@@ -1954,34 +1953,34 @@ Gl&#xFC;ckwunsch, du bist bist jetzt noch dran geblieben.</p>
 Hiernach wir der Rest aufger&#xE4;umt.
 Sobald <code>i</code> ge<code>Drop</code>pt wird, wird auch der Rest vom Heap geleert.</p>
 <h2 id="was-machen-andere-sprachen"><a name="was-machen-andere-sprachen" class="plugin-anchor" href="#was-machen-andere-sprachen"><span class="fa fa-link"></span></a>Was machen andere Sprachen?</h2>
-<p>Viele Sprachen verwenden heutzutage einen GarbageCollector.
-Das hat einige Vorteile, die Beschreibung welcher allerdings den Rahmen dieses Tutorials &#xFC;bersteigt.
-Dort hat meinen keinen manuellen Einflu&#xDF; darauf, ob Speicher auf dem Heap oder Stack verwendet wird.
-Stattdessen liegt fast alles auf dem Heap und der GarbageCollector h&#xE4;lt regelm&#xE4;&#xDF;ig das Programm kurz an und r&#xE4;umt auf.</p>
+<p>Viele Sprachen verwenden heutzutage einen Garbage Collector.
+Das hat einige Vorteile, die Beschreibung w&#xFC;rde allerdings den Rahmen dieses Tutorials sprengen.
+Dort hat man keinen manuellen Einfluss darauf, ob Speicher auf dem Heap oder Stack verwendet wird.
+Stattdessen liegt fast alles auf dem Heap und der Garbage Collector h&#xE4;lt regelm&#xE4;&#xDF;ig das Programm kurz an und r&#xE4;umt auf.</p>
 <p>Bei Sprachen wie C/C++ kann man zwischen Stack und Heap unterscheiden, muss allerdings manuell seinen Speicher aufr&#xE4;umen.
-Hier gibt es bereits moderne Mechanismen, u.a. SmartPointer, die &#xE4;hnliche Charakteristika haben wie Rust <code>Box&lt;T&gt;</code> etc, Konzepte wie &quot;Besitz&quot; und &quot;Ausleihen&quot; sind allerdings noch kein Kernfeature der Sprache.</p>
+Hier gibt es bereits moderne Mechanismen, u.a. SmartPointer, die &#xE4;hnliche Charakteristika haben wie Rust <code>Box&lt;T&gt;</code> etc, Konzepte wie &#x201E;Besitz&#x201C; und &#x201E;Ausleihen&#x201C; sind allerdings noch kein Kernfeature der Sprache.</p>
 <h2 id="was-soll-ich-benutzen"><a name="was-soll-ich-benutzen" class="plugin-anchor" href="#was-soll-ich-benutzen"><span class="fa fa-link"></span></a>Was soll ich benutzen?</h2>
-<p>Der Stack ist schneller und einfacher zu handhaben, wof&#xFC;r also den Heal=p?
-Ein wichtiger Grund ist dass Stack-allozieren alleine nur LIFO<sup><a href="#fn_2" id="reffn_2">2</a></sup> Verhalten bietet.
+<p>Der Stack ist schneller und einfacher zu handhaben, wof&#xFC;r also den Heap?
+Ein wichtiger Grund ist, dass Stack-allozieren alleine nur LIFO<sup><a href="#fn_2" id="reffn_2">2</a></sup>-Verhalten bietet.
 Heapallokation ist vielseitiger und erlaubt schnelles &#xDC;bergeben von gro&#xDF;en Werten ohne Kopieren.</p>
-<p>Allgemein ist Stackallokation zu bevorzugen, weshalb Rust standardm&#xE4;ssig den Stack, das ist grundlegend einfacher und meistens effizienter.</p>
+<p>Allgemein ist Stackallokation zu bevorzugen, weshalb Rust standardm&#xE4;&#xDF;ig den Stack nutzt, das ist grundlegend einfacher und meistens effizienter.</p>
 <h2 id="laufzeiteffizienz"><a name="laufzeiteffizienz" class="plugin-anchor" href="#laufzeiteffizienz"><span class="fa fa-link"></span></a>Laufzeiteffizienz</h2>
 <p>Speicher auf dem Stack verwalten ist trivial:
 Die Maschine inkrementiert und dekrementiert einfach den sogenannten <em>Stack-Pointer</em>.
 Speicher auf dem Heap verwalten ist nicht trivial:
 Speicher auf dem Heap kann beliebig freigegeben werden und jeder Block auf dem Heap kann eine beliebige Gr&#xF6;&#xDF;e haben, es ist allgemein schwerer wiederverwendbare Bereiche zu identifizieren.</p>
-<p>Um hier noch tiefer einzusteigen kannst du <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.143.4688" target="_blank">diese Paper</a>(englisch) lesen oder Grundstudiums-&quot;Betriebssysteme&quot;-Vorlesungen der Uni deiner Wahl besuchen :D</p>
+<p>Um hier noch tiefer einzusteigen kannst du <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.143.4688" target="_blank">diese Paper</a> (englisch) lesen oder Grundstudiums-Vorlesungen &#x201E;Betriebssysteme&#x201C; der Uni deiner Wahl besuchen :D</p>
 <h2 id="semantische-bedeutung"><a name="semantische-bedeutung" class="plugin-anchor" href="#semantische-bedeutung"><span class="fa fa-link"></span></a>Semantische Bedeutung</h2>
 <p>Stackallokation beeinflusst nicht nur Rust selbst, sondern auch das mentale Modell des Entwicklers.
 LIFO-Semantik definiert Rusts automatische Speicherverwaltung.
 Selbst die Freigabe von Heap-allozierten Boxen mit einem einzelnen Besitzer wird von der LIFO-Semantik des Stacks bestimmt, wie bereits oben demonstriert.
 Nicht-LIFO-Semantik w&#xFC;rde zwar mehr Flexibilit&#xE4;t bieten,
-jedoch k&#xF6;nnte ein nicht automatisch zur Compilezeit abgeleiten werden,
+jedoch k&#xF6;nnte dann nicht automatisch zur Compile-Zeit abgeleitet werden,
 wann Speicher freigegeben werden kann.
 Ein Compiler m&#xFC;sste sich auf dynamische Protokolle, potentiell au&#xDF;erhalb der Sprache selbst, verlassen (zum Beispiel <em>reference counting</em> wie in <code>Rc&lt;T&gt;</code> und <code>Arc&lt;T&gt;</code>).</p>
-<p>Wenn man es &#xFC;bertreibt kann man sagen, dass die erh&#xF6;hte Freiheit durch Heapallokation mit signifikanten Kosten verbunden ist, entweder in Form von Laufzeit-Performance (z.B. durch einen GarbageCollector) oder durch erh&#xF6;hten Aufwand f&#xFC;r den Entwickler in Form von expliziten Mechanismen zur Speicherverwaltung (<code>new</code>, <code>delete</code>), welche Rust nicht vorsieht.</p>
+<p>Wenn man es &#xFC;bertreibt kann man sagen, dass die erh&#xF6;hte Freiheit durch Heapallokation mit signifikanten Kosten verbunden ist, entweder in Form von Laufzeit-Performance (z.B. durch einen Garbage Collector) oder durch erh&#xF6;hten Aufwand f&#xFC;r den Entwickler in Form von expliziten Mechanismen zur Speicherverwaltung (<code>new</code>, <code>delete</code>), welche Rust nicht vorsieht.</p>
 <blockquote id="fn_1">
-<sup>1</sup>. Wir k&#xF6;nnen den Speicher l&#xE4;nger leben lassen indem wir den Besitz &#xFC;bertragen das hei&#xDF;t manchmal &#x2018;moving out of the box&#x2019;. Komplexere Beispiele folgen sp&#xE4;ter.<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#x21A9;</a>
+<sup>1</sup>. Wir k&#xF6;nnen den Speicher l&#xE4;nger leben lassen indem wir den Besitz &#xFC;bertragen das hei&#xDF;t manchmal &#x201A;moving out of the box&#x2018;. Komplexere Beispiele folgen sp&#xE4;ter.<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#x21A9;</a>
 </blockquote>
 <blockquote id="fn_2">
 <sup>2</sup>. Last in first out.<a href="#reffn_2" title="Jump back to footnote [2] in the text."> &#x21A9;</a>
